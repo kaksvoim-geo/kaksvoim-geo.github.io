@@ -6,143 +6,123 @@
 <title>Отчёт о геосервисах — Иркутск 5 — Май 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --yellow: #FFC600; --dark: #10192A; --black: #000; --white: #fff;
-    --grey: #F5F5F5; --border: #E5E7EB; --muted: #8A9AB5; --text: #1a1a1a;
-    --red: #e53935; --red-bg: #fff0f0; --red-light: #ffcdd2; --red-border: #ef9a9a;
-    --green-2gis: #1DB954;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Roboto', sans-serif; background: #DCDCDC; color: var(--text); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .page { max-width: 780px; margin: 0 auto; background: var(--white); }
-  .cover { background: var(--dark); display: flex; flex-direction: column; }
-  .cover-top { padding: 28px 32px 0; }
-  .cover-body { padding: 24px 32px 32px; display: flex; flex-direction: column; gap: 20px; }
-  .cover-tag { font-size: 9px; font-weight: 700; letter-spacing: 3px; color: var(--yellow); text-transform: uppercase; margin-bottom: 10px; }
-  .cover-city { font-size: 44px; font-weight: 900; color: var(--white); line-height: 1; text-transform: uppercase; letter-spacing: -1px; }
-  .cover-city .hl { color: var(--yellow); }
-  .cover-bar { height: 4px; background: var(--yellow); }
-  .section { padding: 28px 32px; border-bottom: 1px solid var(--border); }
-  .section:last-child { border-bottom: none; }
-  .section-header { display: flex; align-items: center; margin-bottom: 20px; border-left: 4px solid var(--yellow); padding-left: 14px; }
-  .section-num { font-size: 10px; font-weight: 700; color: var(--dark); letter-spacing: 2px; margin-right: 10px; min-width: 22px; flex-shrink: 0; }
-  .section-title { font-size: 13px; font-weight: 900; color: var(--dark); text-transform: uppercase; letter-spacing: 0.5px; }
-  .works-list { display: flex; flex-direction: column; gap: 6px; }
-  .work-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; background: var(--grey); }
-  .work-check { width: 18px; height: 18px; min-width: 18px; background: var(--yellow); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: var(--black); margin-top: 1px; flex-shrink: 0; }
-  .work-text { font-size: 12.5px; line-height: 1.5; color: #333; }
-  .review-grid { display: flex; flex-direction: column; gap: 10px; }
-  @media (min-width: 500px) { .review-grid { flex-direction: row; } .review-card { flex: 1; } }
-  .review-card { border: 2px solid var(--border); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
-  .review-card:hover { border-color: var(--yellow); }
-  .review-platform-name { font-size: 15px; font-weight: 900; }
-  .review-desc { font-size: 11.5px; color: #555; line-height: 1.55; }
-  .review-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-  .review-link-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--yellow); color: var(--black); font-size: 11px; font-weight: 900; text-decoration: none; padding: 9px 14px; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Roboto', sans-serif; }
-  .review-link-btn:hover { background: var(--dark); color: var(--yellow); }
-  .review-copy-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--dark); color: var(--white); font-size: 11px; font-weight: 700; padding: 9px 14px; border: none; cursor: pointer; font-family: 'Roboto', sans-serif; }
-  .review-copy-btn:hover { background: #1e2d45; }
-  .review-copy-btn.copied { background: #1a8a47; }
-  .ratings-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .ratings-table { width: 100%; min-width: 460px; border-collapse: collapse; }
-  .ratings-table thead tr { background: var(--dark); }
-  .ratings-table th { padding: 10px 12px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); text-align: left; white-space: nowrap; }
-  .ratings-table th:nth-child(4), .ratings-table th:nth-child(5) { text-align: center; }
-  .ratings-table td { padding: 11px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-  .ratings-table tbody tr:last-child td { border-bottom: none; }
-  .ratings-table tbody tr:hover td { background: #fffbeb; }
-  .platform-cell { display: flex; align-items: center; font-weight: 700; font-size: 13px; }
-  .rating-stars { display: flex; align-items: center; gap: 4px; }
-  .stars { display: flex; gap: 2px; }
-  .star { width: 11px; height: 11px; background: var(--yellow); clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
-  .star.empty { background: #ddd; }
-  .rating-num { font-weight: 900; font-size: 14px; }
-  .rating-na { font-size: 11px; color: #bbb; font-style: italic; }
-  .delta { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 700; padding: 3px 7px; white-space: nowrap; }
-  .delta.up { background: #e6f9ef; color: #1a8a47; }
-  .delta.same { background: #f0f0f0; color: #999; }
-  .delta.down { background: #fde8e8; color: #c0392b; }
-  .link-btn { display: inline-block; padding: 5px 10px; background: var(--dark); color: var(--yellow); font-size: 10px; font-weight: 700; text-decoration: none; white-space: nowrap; }
-  .link-btn:hover { background: var(--yellow); color: var(--dark); }
-  .link-na { color: #ccc; font-size: 11px; }
-  td.center { text-align: center; }
-  .plat-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--yellow); flex-wrap: wrap; }
-  .plat-name { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
-  .plat-period { font-size: 10px; color: #999; margin-left: auto; }
-  .kpi-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
-  @media (min-width: 500px) { .kpi-row { grid-template-columns: repeat(4, 1fr); } }
-  .kpi-row-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
-  .kpi-card { background: var(--dark); padding: 14px 14px 16px; position: relative; overflow: hidden; }
-  .kpi-card::after { content: ''; position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; background: var(--yellow); }
-  .kpi-card.green-accent::after { background: var(--green-2gis); }
-  .kpi-label { font-size: 9px; color: var(--muted); font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; line-height: 1.35; }
-  .kpi-value { font-size: 26px; font-weight: 900; color: var(--white); line-height: 1; }
-  .kpi-sparkline { margin-top: 8px; height: 26px; }
-  .kpi-sparkline svg { width: 100%; height: 26px; display: block; }
-  .kpi-delta { font-size: 10px; font-weight: 700; margin-top: 4px; }
-  .kpi-delta.up { color: #4ade80; }
-  .kpi-delta.down { color: #f87171; }
-  .kpi-delta.same { color: var(--muted); }
-  .kpi-note { font-size: 9px; color: var(--muted); margin-top: 5px; line-height: 1.3; }
-  .bar-block { background: var(--grey); padding: 16px 18px; }
-  .bar-block-title { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
-  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
-  .bar-row:last-child { margin-bottom: 0; }
-  .bar-label { font-size: 11px; color: var(--text); font-weight: 500; width: 165px; min-width: 165px; flex-shrink: 0; }
-  .bar-track { flex: 1; height: 16px; background: #E0E0E0; overflow: hidden; }
-  .bar-fill { height: 100%; background: var(--yellow); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; max-width: 85%; min-width: 36px; }
-  .bar-fill.dark { background: var(--dark); }
-  .bar-pct { font-size: 9px; font-weight: 700; color: var(--black); white-space: nowrap; }
-  .bar-fill.dark .bar-pct { color: var(--white); }
-  .bar-abs { font-size: 9px; font-weight: 700; color: #aaa; min-width: 34px; text-align: right; flex-shrink: 0; }
-  .reviews-table { width: 100%; border-collapse: collapse; }
-  .reviews-table thead tr { background: var(--dark); }
-  .reviews-table th { padding: 10px 14px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); text-align: left; white-space: nowrap; }
-  .reviews-table th:not(:first-child) { text-align: center; }
-  .reviews-table th:last-child { background: var(--yellow); color: var(--black); }
-  .reviews-table td { padding: 11px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-  .reviews-table td:not(:first-child) { text-align: center; }
-  .reviews-table tbody tr:last-child td { border-bottom: none; }
-  .reviews-table tfoot tr { background: var(--grey); }
-  .reviews-table tfoot td { padding: 10px 14px; font-size: 12px; font-weight: 700; border-top: 2px solid var(--border); }
-  .reviews-table tfoot td:not(:first-child) { text-align: center; }
-  .rev-total { font-weight: 900; font-size: 16px; color: var(--dark); }
-  .rev-good { color: #1a8a47; font-weight: 700; }
-  .rev-bad { color: var(--red); font-weight: 700; }
-  .rev-na { color: #ccc; font-size: 11px; font-style: italic; }
-  .rev-dash { color: #ccc; }
-  .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  @media (max-width: 480px) { .contacts-grid { grid-template-columns: 1fr; } }
-  .contact-row { display: flex; align-items: stretch; border: 1px solid var(--border); overflow: hidden; }
-  .contact-label { background: var(--dark); color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 11px 10px; min-width: 110px; width: 110px; flex-shrink: 0; display: flex; align-items: flex-start; line-height: 1.3; }
-  .contact-value-wrap { flex: 1; padding: 9px 12px; display: flex; flex-direction: column; gap: 3px; }
-  .contact-value { font-size: 12.5px; font-weight: 700; color: var(--text); line-height: 1.4; word-break: break-all; }
-  .contacts-note { margin-top: 14px; padding: 12px 16px; background: var(--grey); border-left: 3px solid var(--muted); font-size: 11.5px; color: #555; line-height: 1.6; }
-  .contacts-note strong { color: var(--dark); }
-  .missing-block { background: var(--red-bg); border: 2px solid var(--red); padding: 18px 20px; }
-  .missing-title { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #c62828; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-  .missing-title-icon { width: 22px; height: 22px; min-width: 22px; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; }
-  .missing-list { display: flex; flex-direction: column; gap: 8px; }
-  .missing-item { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: #333; line-height: 1.5; }
-  .missing-icon { width: 18px; height: 18px; min-width: 18px; background: var(--red-light); border: 1px solid var(--red-border); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #c62828; margin-top: 1px; }
-  .missing-icon.tip { background: #fff3cd; border-color: #ffc107; color: #856404; }
-  .missing-item.tip { color: #555; }
-  .report-footer { background: var(--dark); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .footer-text { font-size: 10px; color: var(--muted); text-align: right; line-height: 1.7; }
-  .print-btn { position: fixed; bottom: 20px; right: 20px; background: var(--yellow); color: var(--black); border: none; padding: 12px 20px; font-family: 'Roboto', sans-serif; font-weight: 900; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); z-index: 200; }
-  .print-btn:hover { background: var(--dark); color: var(--yellow); }
-  @media print { body { background: white; } .page { max-width: 100%; } .print-btn { display: none; } .section { page-break-inside: avoid; } }
-  @media (max-width: 400px) {
-    .cover-city { font-size: 34px; } .section { padding: 22px 20px; }
-    .cover-top { padding: 20px 20px 0; } .cover-body { padding: 18px 20px 24px; }
-    .report-footer { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
-    .footer-text { text-align: left; } .bar-label { min-width: 110px; width: 110px; font-size: 10px; }
-    .contact-label { min-width: 90px; width: 90px; }
-  }
+  :root{--yellow:#FFC600;--dark:#10192A;--black:#000;--white:#fff;--grey:#F5F5F5;--border:#E5E7EB;--muted:#8A9AB5;--text:#1a1a1a;--red:#e53935;--red-bg:#fff0f0;--red-light:#ffcdd2;--red-border:#ef9a9a;--green-2gis:#1DB954;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Roboto',sans-serif;background:#DCDCDC;color:var(--text);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .page{max-width:780px;margin:0 auto;background:var(--white);}
+  .cover{background:var(--dark);display:flex;flex-direction:column;}
+  .cover-top{padding:28px 32px 0;}
+  .cover-body{padding:24px 32px 32px;display:flex;flex-direction:column;gap:20px;}
+  .cover-tag{font-size:9px;font-weight:700;letter-spacing:3px;color:var(--yellow);text-transform:uppercase;margin-bottom:10px;}
+  .cover-city{font-size:44px;font-weight:900;color:var(--white);line-height:1;text-transform:uppercase;letter-spacing:-1px;}
+  .cover-city .hl{color:var(--yellow);}
+  .cover-bar{height:4px;background:var(--yellow);}
+  .section{padding:28px 32px;border-bottom:1px solid var(--border);}
+  .section:last-child{border-bottom:none;}
+  .section-header{display:flex;align-items:center;margin-bottom:20px;border-left:4px solid var(--yellow);padding-left:14px;}
+  .section-num{font-size:10px;font-weight:700;color:var(--dark);letter-spacing:2px;margin-right:10px;min-width:22px;flex-shrink:0;}
+  .section-title{font-size:13px;font-weight:900;color:var(--dark);text-transform:uppercase;letter-spacing:0.5px;}
+  .works-list{display:flex;flex-direction:column;gap:6px;}
+  .work-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--grey);}
+  .work-check{width:18px;height:18px;min-width:18px;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--black);margin-top:1px;flex-shrink:0;}
+  .work-text{font-size:12.5px;line-height:1.5;color:#333;}
+  .review-grid{display:flex;flex-direction:column;gap:10px;}
+  @media(min-width:500px){.review-grid{flex-direction:row;}.review-card{flex:1;}}
+  .review-card{border:2px solid var(--border);padding:18px 20px;display:flex;flex-direction:column;gap:10px;}
+  .review-card:hover{border-color:var(--yellow);}
+  .review-platform-name{font-size:15px;font-weight:900;}
+  .review-desc{font-size:11.5px;color:#555;line-height:1.55;}
+  .review-btns{display:flex;gap:8px;flex-wrap:wrap;}
+  .review-link-btn{display:inline-flex;align-items:center;gap:6px;background:var(--yellow);color:var(--black);font-size:11px;font-weight:900;text-decoration:none;padding:9px 14px;text-transform:uppercase;border:none;cursor:pointer;font-family:'Roboto',sans-serif;}
+  .review-link-btn:hover{background:var(--dark);color:var(--yellow);}
+  .review-copy-btn{display:inline-flex;align-items:center;gap:6px;background:var(--dark);color:var(--white);font-size:11px;font-weight:700;padding:9px 14px;border:none;cursor:pointer;font-family:'Roboto',sans-serif;}
+  .review-copy-btn:hover{background:#1e2d45;}
+  .review-copy-btn.copied{background:#1a8a47;}
+  .ratings-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .ratings-table{width:100%;min-width:460px;border-collapse:collapse;}
+  .ratings-table thead tr{background:var(--dark);}
+  .ratings-table th{padding:10px 12px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-align:left;white-space:nowrap;}
+  .ratings-table th:nth-child(4),.ratings-table th:nth-child(5){text-align:center;}
+  .ratings-table td{padding:11px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  .ratings-table tbody tr:last-child td{border-bottom:none;}
+  .ratings-table tbody tr:hover td{background:#fffbeb;}
+  .platform-cell{display:flex;align-items:center;font-weight:700;font-size:13px;}
+  .rating-stars{display:flex;align-items:center;gap:4px;}
+  .stars{display:flex;gap:2px;}
+  .star{width:11px;height:11px;background:var(--yellow);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+  .star.empty{background:#ddd;}
+  .rating-num{font-weight:900;font-size:14px;}
+  .rating-na{font-size:11px;color:#bbb;font-style:italic;}
+  .delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 7px;white-space:nowrap;}
+  .delta.up{background:#e6f9ef;color:#1a8a47;}
+  .delta.same{background:#f0f0f0;color:#999;}
+  .delta.down{background:#fde8e8;color:#c0392b;}
+  .link-btn{display:inline-block;padding:5px 10px;background:var(--dark);color:var(--yellow);font-size:10px;font-weight:700;text-decoration:none;white-space:nowrap;}
+  .link-btn:hover{background:var(--yellow);color:var(--dark);}
+  .link-na{color:#ccc;font-size:11px;}
+  td.center{text-align:center;}
+  .plat-heading{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--yellow);flex-wrap:wrap;}
+  .plat-name{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;}
+  .plat-period{font-size:10px;color:#999;margin-left:auto;}
+  .kpi-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px;}
+  @media(min-width:500px){.kpi-row{grid-template-columns:repeat(4,1fr);}}
+  .kpi-card{background:var(--dark);padding:14px 14px 16px;position:relative;overflow:hidden;}
+  .kpi-card::after{content:'';position:absolute;bottom:0;left:0;height:3px;width:100%;background:var(--yellow);}
+  .kpi-card.green-accent::after{background:var(--green-2gis);}
+  .kpi-label{font-size:9px;color:var(--muted);font-weight:500;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;line-height:1.35;}
+  .kpi-value{font-size:26px;font-weight:900;color:var(--white);line-height:1;}
+  .kpi-sparkline{margin-top:8px;height:26px;}
+  .kpi-sparkline svg{width:100%;height:26px;display:block;}
+  .kpi-delta{font-size:10px;font-weight:700;margin-top:4px;}
+  .kpi-delta.up{color:#4ade80;}
+  .kpi-delta.down{color:#f87171;}
+  .kpi-delta.same{color:var(--muted);}
+  .kpi-note{font-size:9px;color:var(--muted);margin-top:5px;line-height:1.3;}
+  .reviews-table{width:100%;border-collapse:collapse;}
+  .reviews-table thead tr{background:var(--dark);}
+  .reviews-table th{padding:10px 14px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-align:left;white-space:nowrap;}
+  .reviews-table th:not(:first-child){text-align:center;}
+  .reviews-table th:last-child{background:var(--yellow);color:var(--black);}
+  .reviews-table td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  .reviews-table td:not(:first-child){text-align:center;}
+  .reviews-table tbody tr:last-child td{border-bottom:none;}
+  .reviews-table tfoot tr{background:var(--grey);}
+  .reviews-table tfoot td{padding:10px 14px;font-size:12px;font-weight:700;border-top:2px solid var(--border);}
+  .reviews-table tfoot td:not(:first-child){text-align:center;}
+  .rev-total{font-weight:900;font-size:16px;color:var(--dark);}
+  .rev-good{color:#1a8a47;font-weight:700;}
+  .rev-bad{color:var(--red);font-weight:700;}
+  .rev-na{color:#ccc;font-size:11px;font-style:italic;}
+  .rev-dash{color:#ccc;}
+  .contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  @media(max-width:480px){.contacts-grid{grid-template-columns:1fr;}}
+  .contact-row{display:flex;align-items:stretch;border:1px solid var(--border);overflow:hidden;}
+  .contact-row.absent{border-color:var(--border);background:var(--grey);opacity:0.7;}
+  .contact-label{background:var(--dark);color:var(--muted);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 10px;min-width:110px;width:110px;flex-shrink:0;display:flex;align-items:flex-start;line-height:1.3;}
+  .contact-row.absent .contact-label{background:#aaa;color:white;}
+  .contact-value-wrap{flex:1;padding:9px 12px;display:flex;flex-direction:column;gap:3px;}
+  .contact-value{font-size:12.5px;font-weight:700;color:var(--text);line-height:1.4;word-break:break-all;}
+  .contact-row.absent .contact-value{color:#888;font-weight:400;font-style:italic;}
+  .contacts-note{margin-top:14px;padding:12px 16px;background:var(--grey);border-left:3px solid var(--muted);font-size:11.5px;color:#555;line-height:1.6;}
+  .contacts-note strong{color:var(--dark);}
+  .missing-block{background:var(--red-bg);border:2px solid var(--red);padding:18px 20px;}
+  .missing-title{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#c62828;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .missing-title-icon{width:22px;height:22px;min-width:22px;background:var(--red);color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;}
+  .missing-list{display:flex;flex-direction:column;gap:8px;}
+  .missing-item{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:#333;line-height:1.5;}
+  .missing-icon{width:18px;height:18px;min-width:18px;background:var(--red-light);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#c62828;margin-top:1px;}
+  .missing-icon.tip{background:#fff3cd;border-color:#ffc107;color:#856404;}
+  .missing-item.tip{color:#555;}
+  .report-footer{background:var(--dark);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .footer-text{font-size:10px;color:var(--muted);text-align:right;line-height:1.7;}
+  .print-btn{position:fixed;bottom:20px;right:20px;background:var(--yellow);color:var(--black);border:none;padding:12px 20px;font-family:'Roboto',sans-serif;font-weight:900;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:200;}
+  .print-btn:hover{background:var(--dark);color:var(--yellow);}
+  @media print{body{background:white;}.page{max-width:100%;}.print-btn{display:none;}.section{page-break-inside:avoid;}}
+  @media(max-width:400px){.cover-city{font-size:34px;}.section{padding:22px 20px;}.cover-top{padding:20px 20px 0;}.cover-body{padding:18px 20px 24px;}.report-footer{padding:16px 20px;flex-direction:column;align-items:flex-start;}.footer-text{text-align:left;}}
 </style>
 </head>
 <body>
-<button class="print-btn" onclick="window.print()">⬇ PDF</button>
+<button class="print-btn" onclick="window.print()">&#8595; PDF</button>
 <div class="page">
 
 <div class="cover">
@@ -156,25 +136,23 @@
   <div class="cover-bar"></div>
 </div>
 
-<!-- 01 WORKS -->
 <div class="section">
   <div class="section-header"><span class="section-num">01</span><span class="section-title">Выполненные работы</span></div>
   <div class="works-list">
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Ежедневный контроль отзывов на Яндекс Картах, 2ГИС, Google Maps, Zoon, Flamp</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Работа с репутацией: ответы на отзывы, подача жалоб, чистка негатива</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Ежедневная проверка корректности данных о компании</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Добавление новых публикаций с SEO-оптимизированными текстами на Яндекс Картах</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Бесплатное внедрение новых функций и дополнений геосервисов</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Добавление новых фото-материалов</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Работа с товарами и услугами — описания SEO-оптимизированы</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Работа с аналитикой, полезные рекомендации</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Коммуникация с поддержкой геосервисов</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Контроль незапланированных автоизменений данных Яндекс-роботом и 2ГИС</div></div>
-    <div class="work-item"><div class="work-check">✓</div><div class="work-text">Подготовка ежемесячной отчётности</div></div>
-  </div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Ежедневный контроль отзывов на Яндекс Картах, 2ГИС, Google Maps, Zoon, Flamp</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Работа с репутацией: ответы на отзывы, подача жалоб, чистка негатива</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Ежедневная проверка корректности данных о компании</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Добавление новых публикаций с SEO-оптимизированными текстами на Яндекс Картах</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Бесплатное внедрение новых функций и дополнений геосервисов</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Добавление новых фото-материалов</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Работа с товарами и услугами — описания SEO-оптимизированы</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Работа с аналитикой, полезные рекомендации</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Коммуникация с поддержкой геосервисов</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Контроль незапланированных автоизменений данных Яндекс-роботом и 2ГИС</div></div>
+    <div class="work-item"><div class="work-check">&#10003;</div><div class="work-text">Подготовка ежемесячной отчётности</div></div>
+</div>
 </div>
 
-<!-- 02 REVIEW LINKS -->
 <div class="section">
   <div class="section-header"><span class="section-num">02</span><span class="section-title">Ссылки для сбора отзывов</span></div>
   <div class="review-grid">
@@ -182,44 +160,40 @@
       <div class="review-platform-name" style="color:#fc3f1d">Яндекс Карты</div>
       <div class="review-desc">Передайте эту ссылку клиенту — он попадёт сразу на форму отзыва и сможет оставить его в пару кликов.</div>
       <div class="review-btns">
-        <a href="https://yandex.ru/maps/org/64326283949?add-review=true" target="_blank" class="review-link-btn">↗ Открыть</a>
-        <button class="review-copy-btn" onclick="copyLink(this,'https://yandex.ru/maps/org/64326283949?add-review=true')">⧉ Скопировать</button>
+        <a href="https://yandex.ru/maps/org/64326283949?add-review=true" target="_blank" class="review-link-btn">&#8599; Открыть</a>
+        <button class="review-copy-btn" onclick="copyLink(this,'https://yandex.ru/maps/org/64326283949?add-review=true')">&#8999; Скопировать</button>
       </div>
     </div>
     <div class="review-card">
       <div class="review-platform-name" style="color:var(--green-2gis)">2ГИС</div>
       <div class="review-desc">Передайте эту ссылку клиенту — он попадёт сразу на форму отзыва и сможет оставить его в пару кликов.</div>
       <div class="review-btns">
-        <a href="https://2gis.ru/reviews/70000001114295178/addReview" target="_blank" class="review-link-btn">↗ Открыть</a>
-        <button class="review-copy-btn" onclick="copyLink(this,'https://2gis.ru/reviews/70000001114295178/addReview')">⧉ Скопировать</button>
+        <a href="https://2gis.ru/reviews/70000001114295178/addReview" target="_blank" class="review-link-btn">&#8599; Открыть</a>
+        <button class="review-copy-btn" onclick="copyLink(this,'https://2gis.ru/reviews/70000001114295178/addReview')">&#8999; Скопировать</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 03 RATINGS -->
 <div class="section">
   <div class="section-header"><span class="section-num">03</span><span class="section-title">Рейтинг на геосервисах</span></div>
   <div class="ratings-wrap">
     <table class="ratings-table">
-      <thead><tr>
-        <th>#</th><th>Геосервис</th><th>Рейтинг</th>
-        <th style="text-align:center">Динамика</th><th style="text-align:center">Ссылка</th>
-      </tr></thead>
+      <thead><tr><th>#</th><th>Геосервис</th><th>Рейтинг</th><th style="text-align:center">Динамика</th><th style="text-align:center">Ссылка</th></tr></thead>
       <tbody>
         <tr>
           <td style="color:#bbb;font-size:11px;font-weight:700">1</td>
           <td><div class="platform-cell">Яндекс Карты</div></td>
           <td><span class="rating-na">нет рейтинга</span></td>
           <td class="center"><span class="delta same">—</span></td>
-          <td class="center"><a href="https://yandex.ru/maps/org/64326283949" target="_blank" class="link-btn">→</a></td>
+          <td class="center"><a href="https://yandex.ru/maps/org/64326283949" target="_blank" class="link-btn">&#8594;</a></td>
         </tr>
         <tr>
           <td style="color:#bbb;font-size:11px;font-weight:700">2</td>
           <td><div class="platform-cell">2ГИС</div></td>
           <td><span class="rating-na">нет рейтинга</span></td>
           <td class="center"><span class="delta same">—</span></td>
-          <td class="center"><a href="https://go.2gis.com/8XlMv" target="_blank" class="link-btn">→</a></td>
+          <td class="center"><a href="https://go.2gis.com/8XlMv" target="_blank" class="link-btn">&#8594;</a></td>
         </tr>
         <tr>
           <td style="color:#bbb;font-size:11px;font-weight:700">3</td>
@@ -231,28 +205,22 @@
         <tr>
           <td style="color:#bbb;font-size:11px;font-weight:700">4</td>
           <td><div class="platform-cell">Zoon</div></td>
-          <td>
-            <div class="rating-stars">
-              <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-              <span class="rating-num">5,0</span>
-            </div>
-          </td>
+          <td><div class="rating-stars"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><span class="rating-num">5,0</span></div></td>
           <td class="center"><span class="delta same">—</span></td>
-          <td class="center"><a href="https://zoon.ru/s/bCDvBQ" target="_blank" class="link-btn">→</a></td>
+          <td class="center"><a href="https://zoon.ru/s/j3g7vw" target="_blank" class="link-btn">&#8594;</a></td>
         </tr>
         <tr>
           <td style="color:#bbb;font-size:11px;font-weight:700">5</td>
           <td><div class="platform-cell">Flamp</div></td>
           <td><span class="rating-na">нет рейтинга</span></td>
           <td class="center"><span class="delta same">—</span></td>
-          <td class="center"><a href="https://irkutsk.flamp.ru/firm/kaksvoim-70000001114295178" target="_blank" class="link-btn">→</a></td>
+          <td class="center"><a href="https://irkutsk.flamp.ru/firm/kaksvoim-70000001114295178" target="_blank" class="link-btn">&#8594;</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<!-- 04 YANDEX -->
 <div class="section">
   <div class="section-header"><span class="section-num">04</span><span class="section-title">Статистика Яндекс Бизнес</span></div>
   <div class="plat-heading">
@@ -263,50 +231,31 @@
     <div class="kpi-card">
       <div class="kpi-label">Переходы в профиль</div>
       <div class="kpi-value">9</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,24 40,24 80,8" fill="none" stroke="rgba(255,198,0,0.5)" stroke-width="1.5"/>
-        <circle cx="80" cy="8" r="2.5" fill="#4ade80"/>
-      </svg></div>
-      <div class="kpi-delta up">▲ с 0 (апрель)</div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,24 40,24 80,8" fill="none" stroke="rgba(255,198,0,0.5)" stroke-width="1.5"/><circle cx="80" cy="8" r="2.5" fill="#4ade80"/></svg></div>
+      <div class="kpi-delta up">&#9650; с 0 (апрель)</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Просмотр фото</div>
-      <div class="kpi-value">2</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,24 40,24 80,14" fill="none" stroke="rgba(255,198,0,0.5)" stroke-width="1.5"/>
-        <circle cx="80" cy="14" r="2.5" fill="#4ade80"/>
-      </svg></div>
-      <div class="kpi-delta up">▲ с 0 (апрель)</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Просмотры отзывов</div>
-      <div class="kpi-value">2</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,24 40,24 80,14" fill="none" stroke="rgba(255,198,0,0.5)" stroke-width="1.5"/>
-        <circle cx="80" cy="14" r="2.5" fill="#4ade80"/>
-      </svg></div>
-      <div class="kpi-delta up">▲ с 0 (апрель)</div>
+      <div class="kpi-label">Всего действий</div>
+      <div class="kpi-value">6</div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,24 40,24 80,10" fill="none" stroke="rgba(255,198,0,0.5)" stroke-width="1.5"/><circle cx="80" cy="10" r="2.5" fill="#4ade80"/></svg></div>
+      <div class="kpi-delta up">&#9650; с 0 (апрель)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Клики по телефону</div>
       <div class="kpi-value">1</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,24 40,24 80,18" fill="none" stroke="rgba(255,198,0,0.5)" stroke-width="1.5"/>
-        <circle cx="80" cy="18" r="2.5" fill="#4ade80"/>
-      </svg></div>
-      <div class="kpi-delta up">▲ с 0 (апрель)</div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,24 40,24 80,18" fill="none" stroke="rgba(255,198,0,0.5)" stroke-width="1.5"/><circle cx="80" cy="18" r="2.5" fill="#4ade80"/></svg></div>
+      <div class="kpi-delta up">&#9650; с 0 (апрель)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Переходов на сайт</div>
+      <div class="kpi-value">0</div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,24 40,24 80,24" fill="none" stroke="rgba(255,198,0,0.3)" stroke-width="1.5"/><circle cx="80" cy="24" r="2.5" fill="#8a9ab5"/></svg></div>
+      <div class="kpi-delta same">—</div>
     </div>
   </div>
-  <div class="bar-block">
-    <div class="bar-block-title">Что делали в профиле — май 2026</div>
-    <div class="bar-row"><div class="bar-label">Просмотр фото</div><div class="bar-track"><div class="bar-fill" style="width:85%"><span class="bar-pct">2</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Просмотры отзывов</div><div class="bar-track"><div class="bar-fill" style="width:85%"><span class="bar-pct">2</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Клики по телефону</div><div class="bar-track"><div class="bar-fill" style="width:42%"><span class="bar-pct">1</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Просмотр времени работы</div><div class="bar-track"><div class="bar-fill dark" style="width:42%"><span class="bar-pct">1</span></div></div></div>
-  </div>
+  <div style="background:#F5F5F5;padding:16px 18px;margin-bottom:12px;"><div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-bottom:12px;">Яндекс — что делали в профиле · май 2026</div><div style="display:flex;height:28px;width:100%;overflow:hidden;border-radius:3px;gap:2px;"><div style="width:33.3%;background:#FFC600;height:100%;flex-shrink:0;" title="Просмотр фото"></div><div style="width:33.3%;background:#10192A;height:100%;flex-shrink:0;" title="Просмотры отзывов"></div><div style="width:16.7%;background:#4a90d9;height:100%;flex-shrink:0;" title="Клики по телефону"></div><div style="width:16.7%;background:#e8873a;height:100%;flex-shrink:0;" title="Просмотр времени работы"></div></div><div style="margin-top:12px;"><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#FFC600;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Просмотр фото</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">2</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#10192A;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Просмотры отзывов</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">2</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#4a90d9;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Клики по телефону</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">1</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#e8873a;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Просмотр времени работы</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">1</div></div></div></div>
 </div>
 
-<!-- 05 2GIS -->
 <div class="section">
   <div class="section-header"><span class="section-num">05</span><span class="section-title">Статистика 2ГИС</span></div>
   <div class="plat-heading">
@@ -317,61 +266,35 @@
     <div class="kpi-card green-accent">
       <div class="kpi-label">Показы карточки</div>
       <div class="kpi-value">252</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,20 40,20 80,4" fill="none" stroke="rgba(29,185,84,0.5)" stroke-width="1.5"/>
-        <circle cx="80" cy="4" r="2.5" fill="#4ade80"/>
-      </svg></div>
-      <div class="kpi-delta up">▲ +327% к апрелю (было 59)</div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,20 40,20 80,4" fill="none" stroke="rgba(29,185,84,0.5)" stroke-width="1.5"/><circle cx="80" cy="4" r="2.5" fill="#4ade80"/></svg></div>
+      <div class="kpi-delta up">&#9650; +327% к апрелю (было 59)</div>
     </div>
     <div class="kpi-card green-accent">
       <div class="kpi-label">Позиция в выдаче</div>
       <div class="kpi-value">38</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,8 40,8 80,12" fill="none" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/>
-        <circle cx="80" cy="12" r="2.5" fill="#f87171"/>
-      </svg></div>
-      <div class="kpi-delta down">▼ была 36 в апреле</div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,8 40,8 80,12" fill="none" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/><circle cx="80" cy="12" r="2.5" fill="#f87171"/></svg></div>
+      <div class="kpi-delta down">&#9660; была 36 в апреле</div>
     </div>
     <div class="kpi-card green-accent">
       <div class="kpi-label">Переходы к отзывам</div>
       <div class="kpi-value">49.3%</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,24 80,8" fill="none" stroke="rgba(29,185,84,0.4)" stroke-width="1.5"/>
-        <circle cx="80" cy="8" r="2.5" fill="#4ade80"/>
-      </svg></div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,24 80,8" fill="none" stroke="rgba(29,185,84,0.4)" stroke-width="1.5"/><circle cx="80" cy="8" r="2.5" fill="#4ade80"/></svg></div>
       <div class="kpi-delta same">топ-1 действие</div>
     </div>
     <div class="kpi-card green-accent">
-      <div class="kpi-label">Просмотры фотогалереи</div>
+      <div class="kpi-label">Просм. фотогалереи</div>
       <div class="kpi-value">17.8%</div>
-      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none">
-        <polyline points="0,24 80,14" fill="none" stroke="rgba(29,185,84,0.4)" stroke-width="1.5"/>
-        <circle cx="80" cy="14" r="2.5" fill="#4ade80"/>
-      </svg></div>
+      <div class="kpi-sparkline"><svg viewBox="0 0 80 26" preserveAspectRatio="none"><polyline points="0,24 80,14" fill="none" stroke="rgba(29,185,84,0.4)" stroke-width="1.5"/><circle cx="80" cy="14" r="2.5" fill="#4ade80"/></svg></div>
       <div class="kpi-delta same">топ-2 действие</div>
     </div>
   </div>
-  <div class="bar-block">
-    <div class="bar-block-title">Действия на странице — май 2026</div>
-    <div class="bar-row"><div class="bar-label">Переходы к отзывам</div><div class="bar-track"><div class="bar-fill" style="width:85%"><span class="bar-pct">49.3%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Просмотры фотогалереи</div><div class="bar-track"><div class="bar-fill" style="width:31%"><span class="bar-pct">17.8%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Просмотр цен</div><div class="bar-track"><div class="bar-fill" style="width:12%"><span class="bar-pct">6.8%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Поделиться ссылкой</div><div class="bar-track"><div class="bar-fill" style="width:12%"><span class="bar-pct">6.8%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Звонки и просм. тел.</div><div class="bar-track"><div class="bar-fill" style="width:12%"><span class="bar-pct">6.8%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Переходы на сайт</div><div class="bar-track"><div class="bar-fill dark" style="width:12%"><span class="bar-pct">6.8%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Открытие чата</div><div class="bar-track"><div class="bar-fill" style="width:2%"><span class="bar-pct">1.3%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Построение маршрута</div><div class="bar-track"><div class="bar-fill" style="width:2%"><span class="bar-pct">1.3%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">Переходы в соцсети</div><div class="bar-track"><div class="bar-fill" style="width:3%"><span class="bar-pct">1.8%</span></div></div></div>
-  </div>
+  <div style="background:#F5F5F5;padding:16px 18px;margin-bottom:12px;"><div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-bottom:12px;">2ГИС — действия на странице · май 2026</div><div style="display:flex;height:28px;width:100%;overflow:hidden;border-radius:3px;gap:2px;"><div style="width:49.9%;background:#FFC600;height:100%;flex-shrink:0;" title="Переходы к отзывам"></div><div style="width:18.0%;background:#10192A;height:100%;flex-shrink:0;" title="Просмотры фотогалереи"></div><div style="width:6.9%;background:#4a90d9;height:100%;flex-shrink:0;" title="Просмотр цен"></div><div style="width:6.9%;background:#e8873a;height:100%;flex-shrink:0;" title="Поделиться ссылкой"></div><div style="width:6.9%;background:#7b5ea7;height:100%;flex-shrink:0;" title="Звонки и просм. тел."></div><div style="width:6.9%;background:#2ecc71;height:100%;flex-shrink:0;" title="Переходы на сайт"></div><div style="width:1.3%;background:#e74c3c;height:100%;flex-shrink:0;" title="Открытие чата"></div><div style="width:1.3%;background:#1abc9c;height:100%;flex-shrink:0;" title="Построение маршрута"></div><div style="width:1.8%;background:#FFC600;height:100%;flex-shrink:0;" title="Переходы в соцсети"></div></div><div style="margin-top:12px;"><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#FFC600;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Переходы к отзывам</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">49.3%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#10192A;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Просмотры фотогалереи</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">17.8%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#4a90d9;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Просмотр цен</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">6.8%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#e8873a;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Поделиться ссылкой</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">6.8%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#7b5ea7;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Звонки и просм. тел.</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">6.8%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#2ecc71;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Переходы на сайт</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">6.8%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#e74c3c;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Открытие чата</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">1.3%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#1abc9c;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Построение маршрута</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">1.3%</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><div style="width:12px;height:12px;min-width:12px;background:#FFC600;border-radius:2px;flex-shrink:0;"></div><div style="flex:1;font-size:12px;color:#333;">Переходы в соцсети</div><div style="font-size:12px;font-weight:700;color:#10192A;white-space:nowrap;">1.8%</div></div></div></div>
 </div>
 
-<!-- 06 ОТЗЫВЫ -->
 <div class="section">
   <div class="section-header"><span class="section-num">06</span><span class="section-title">Отзывы</span></div>
   <table class="reviews-table">
-    <thead><tr>
-      <th>Геосервис</th><th>Всего</th><th>Хорошие (4–5 ★)</th><th>Плохие (1–3 ★)</th><th>🗑 Удалено нами</th>
-    </tr></thead>
+    <thead><tr><th>Геосервис</th><th>Всего</th><th>Хорошие (4–5 &#9733;)</th><th>Плохие (1–3 &#9733;)</th><th>&#128465; Удалено нами</th></tr></thead>
     <tbody>
       <tr><td><strong>Яндекс Карты</strong></td><td><span class="rev-total">0</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td></tr>
       <tr><td><strong>2ГИС</strong></td><td><span class="rev-total">0</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td></tr>
@@ -379,13 +302,10 @@
       <tr><td><strong>Zoon</strong></td><td><span class="rev-total">1</span></td><td><span class="rev-good">1</span></td><td><span class="rev-dash">0</span></td><td><span class="rev-dash">—</span></td></tr>
       <tr><td><strong>Flamp</strong></td><td><span class="rev-total">0</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td></tr>
     </tbody>
-    <tfoot><tr>
-      <td><strong>Итого</strong></td><td><span class="rev-total">1</span></td><td><span class="rev-good">1</span></td><td><span class="rev-dash">0</span></td><td><span class="rev-dash">—</span></td>
-    </tr></tfoot>
+    <tfoot><tr><td><strong>Итого</strong></td><td><span class="rev-total">1</span></td><td><span class="rev-good">1</span></td><td><span class="rev-dash">0</span></td><td><span class="rev-dash">—</span></td></tr></tfoot>
   </table>
 </div>
 
-<!-- 07 CONTACTS -->
 <div class="section">
   <div class="section-header"><span class="section-num">07</span><span class="section-title">Данные организации на геосервисах</span></div>
   <div class="contacts-grid">
@@ -400,19 +320,16 @@
     <div class="contact-row"><div class="contact-label">ИНН</div><div class="contact-value-wrap"><div class="contact-value">800300148440</div></div></div>
     <div class="contact-row"><div class="contact-label">ОГРНИП</div><div class="contact-value-wrap"><div class="contact-value">325750000012494</div></div></div>
   </div>
-  <div class="contacts-note">
-    Если вы обнаружили ошибку в данных выше — пришлите актуальную информацию <strong>Руслану</strong>. Изменения будут внесены в течение рабочего дня; модерация на каждом геосервисе проходит согласно срокам, установленным самими платформами.
-  </div>
+  <div class="contacts-note">Если вы обнаружили ошибку в данных выше — пришлите актуальную информацию <strong>Руслану</strong>. Изменения будут внесены в течение рабочего дня; модерация на каждом геосервисе проходит согласно срокам, установленным самими платформами.</div>
 </div>
 
-<!-- 08 ТРЕБУЕТСЯ ОТ ПАРТНЁРА -->
 <div class="section">
   <div class="section-header"><span class="section-num">08</span><span class="section-title">Требуется от партнёра</span></div>
   <div class="missing-block">
     <div class="missing-title"><div class="missing-title-icon">!</div>Необходимо действие с вашей стороны</div>
     <div class="missing-list">
       <div class="missing-item"><div class="missing-icon">!</div><div><strong>Google Maps</strong> — необходимо снять и загрузить видео для подтверждения организации</div></div>
-      <div class="missing-item tip"><div class="missing-icon tip">★</div><div><strong>Просите клиентов оставлять отзывы</strong> на Яндекс Картах и 2ГИС — чем больше отзывов, тем выше позиция в поиске и больше новых клиентов. Используйте ссылки из раздела 02 этого отчёта.</div></div>
+      <div class="missing-item tip"><div class="missing-icon tip">&#9733;</div><div><strong>Просите клиентов оставлять отзывы</strong> на Яндекс Картах и 2ГИС — чем больше отзывов, тем выше позиция в поиске и больше новых клиентов. Используйте ссылки из раздела 02 этого отчёта.</div></div>
     </div>
   </div>
 </div>
@@ -425,13 +342,13 @@
 <script>
 function copyLink(btn, url) {
   navigator.clipboard.writeText(url).then(function() {
-    var orig = btn.innerHTML; btn.innerHTML = '✓ Скопировано'; btn.classList.add('copied');
+    var orig = btn.innerHTML; btn.innerHTML = '&#10003; Скопировано'; btn.classList.add('copied');
     setTimeout(function() { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
   }).catch(function() {
     var ta = document.createElement('textarea'); ta.value = url;
     document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-    btn.innerHTML = '✓ Скопировано'; btn.classList.add('copied');
-    setTimeout(function() { btn.innerHTML = '⧉ Скопировать'; btn.classList.remove('copied'); }, 2000);
+    btn.innerHTML = '&#10003; Скопировано'; btn.classList.add('copied');
+    setTimeout(function() { btn.innerHTML = '&#8999; Скопировать'; btn.classList.remove('copied'); }, 2000);
   });
 }
 </script>
