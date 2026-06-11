@@ -157,6 +157,9 @@
     .bar-label { min-width: 100px; width: 100px; font-size: 10px; }
     .contact-label { min-width: 90px; width: 90px; }
   }
+
+  .scroll-wrap { position:relative; }
+  .scroll-wrap::after { content:''; position:absolute; top:0; right:0; width:40px; height:100%; background:linear-gradient(to right, transparent, rgba(255,255,255,0.95)); pointer-events:none; }
 </style>
 </head>
 <body>
@@ -218,7 +221,7 @@
 <!-- 03 RATINGS -->
 <div class="section">
   <div class="section-header"><span class="section-num">03</span><span class="section-title">Рейтинг на геосервисах</span></div>
-  <div class="ratings-wrap">
+  <div class="scroll-wrap"><div class="ratings-wrap">
     <table class="ratings-table">
       <thead><tr>
         <th>#</th><th>Геосервис</th><th>Рейтинг</th>
@@ -263,6 +266,8 @@
       </tbody>
     </table>
   </div>
+<div style="display:flex;justify-content:flex-end;margin-top:6px;"><div style="background:#10192A;color:#FFC600;font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 12px;">← ЛИСТАЙТЕ ВПРАВО →</div></div>
+</div>
 </div>
 
 <!-- 04 YANDEX STATS -->
@@ -485,7 +490,7 @@
 <!-- 06 REVIEWS -->
 <div class="section">
   <div class="section-header"><span class="section-num">06</span><span class="section-title">Отзывы</span></div>
-  <table class="reviews-table">
+  <div class="scroll-wrap"><div class="ratings-wrap"><table class="reviews-table">
     <thead><tr>
       <th>Геосервис</th><th>Всего</th><th>Хорошие (4–5 ★)</th><th>Плохие (1–3 ★)</th><th>🗑 Удалено нами</th>
     </tr></thead>
@@ -500,6 +505,8 @@
       <td><strong>Итого</strong></td><td><span class="rev-total">0</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td><td><span class="rev-dash">—</span></td>
     </tr></tfoot>
   </table>
+</div>
+<div style="display:flex;justify-content:flex-end;margin-top:6px;"><div style="background:#10192A;color:#FFC600;font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 12px;">← ЛИСТАЙТЕ ВПРАВО →</div></div>
 </div>
 
 <!-- 07 CONTACTS -->
