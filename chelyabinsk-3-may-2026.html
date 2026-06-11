@@ -157,6 +157,10 @@
     .bar-label { min-width: 100px; width: 100px; font-size: 10px; }
     .contact-label { min-width: 90px; width: 90px; }
   }
+
+  .scroll-wrap { position:relative; }
+  .scroll-wrap::after { content:''; position:absolute; top:0; right:0; width:40px; height:100%; background:linear-gradient(to right, transparent, rgba(255,255,255,0.95)); pointer-events:none; }
+  .scroll-hint { font-size:10px; color:#aaa; text-align:right; padding:4px 0 0; letter-spacing:0.5px; }
 </style>
 </head>
 <body>
@@ -218,7 +222,7 @@
 <!-- 03 RATINGS -->
 <div class="section">
   <div class="section-header"><span class="section-num">03</span><span class="section-title">Рейтинг на геосервисах</span></div>
-  <div class="ratings-wrap">
+  <div class="scroll-wrap"><div class="ratings-wrap">
     <table class="ratings-table">
       <thead><tr>
         <th>#</th><th>Геосервис</th><th>Рейтинг</th>
@@ -267,6 +271,8 @@
       </tbody>
     </table>
   </div>
+</div>
+<div class="scroll-hint">прокрутите →</div>
 </div>
 
 <!-- 04 YANDEX STATS -->
@@ -460,7 +466,7 @@
 <!-- 06 ОТЗЫВЫ -->
 <div class="section">
   <div class="section-header"><span class="section-num">06</span><span class="section-title">Отзывы</span></div>
-  <div class="ratings-wrap"><table class="reviews-table">
+  <div class="scroll-wrap"><div class="scroll-wrap"><div class="ratings-wrap"><table class="reviews-table">
     <thead><tr>
       <th>Геосервис</th><th>Всего</th><th>Хорошие (4–5 ★)</th><th>Плохие (1–3 ★)</th><th>🗑 Удалено нами</th>
     </tr></thead>
