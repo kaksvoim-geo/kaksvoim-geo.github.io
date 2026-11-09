@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Опросник — Октябрь 2026 — КАКСВОИМ</title>
+<style>
+:root{--dark:#10192A;--yellow:#FFC600;--green:#1DB954;--red:#e53935;--border:#E5E7EB;--grey:#F5F5F5;--muted:#8A9AB5;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:#DCDCDC;color:#1a1a1a;font-size:13px;}
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh;max-width:1100px;margin:0 auto;}
+.sidebar{background:var(--dark);padding:0;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;}
+.sidebar-head{padding:16px 16px 12px;border-bottom:1px solid #1e2d44;}
+.sidebar-title{font-size:14px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;}
+.sidebar-title span{color:var(--yellow);}
+.progress-bar{height:4px;background:#1e2d44;margin-top:10px;border-radius:2px;}
+.progress-fill{height:100%;background:var(--yellow);border-radius:2px;transition:width .3s;}
+.progress-text{font-size:10px;color:var(--muted);margin-top:5px;}
+.partner-list{flex:1;padding:8px 0;}
+.partner-item{padding:8px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;border-left:3px solid transparent;transition:all .15s;}
+.partner-item:hover{background:#1e2d44;}
+.partner-item.active{background:#1e2d44;border-left-color:var(--yellow);}
+.partner-item.done{opacity:.4;}
+.p-check{width:16px;height:16px;min-width:16px;border:2px solid #2a3a52;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;}
+.partner-item.done .p-check{background:var(--green);border-color:var(--green);}
+.p-name{font-size:12px;font-weight:700;color:#fff;flex:1;}
+.partner-item.done .p-name{text-decoration:line-through;color:var(--muted);}
+.p-badge{font-size:8px;font-weight:900;padding:2px 5px;text-transform:uppercase;letter-spacing:.5px;}
+.p-badge.ads{background:var(--yellow);color:var(--dark);}
+.p-badge.new{background:var(--green);color:#fff;}
+.main{background:#fff;display:flex;flex-direction:column;}
+.main-head{background:var(--dark);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.main-partner{font-size:18px;font-weight:900;color:#fff;}
+.main-partner span{color:var(--yellow);}
+.empty{padding:60px 24px;text-align:center;color:var(--muted);}
+.section{padding:16px 24px;border-bottom:1px solid var(--border);}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.sec-num{background:var(--dark);color:var(--yellow);font-size:9px;font-weight:900;padding:3px 8px;letter-spacing:1px;}
+.sec-title{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:var(--dark);}
+.sec-hint{font-size:11px;color:var(--muted);margin-left:auto;}
+.rev-grid{display:grid;grid-template-columns:120px 1fr 1fr 1fr 1fr;gap:5px;align-items:center;}
+.col-h{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:center;padding-bottom:4px;}
+.pl{font-size:11px;font-weight:700;}
+.pl.ya{color:#fc3f1d;}.pl.gi{color:var(--green);}.pl.go{color:#4285F4;}.pl.zo{color:#7c3aed;}.pl.fl{color:#ff6b00;}
+.rev-grid input{padding:6px 8px;border:1px solid var(--border);font-size:12px;font-weight:700;text-align:center;background:var(--grey);width:100%;}
+.rev-grid input:focus{outline:none;border-color:var(--yellow);background:#fff;}
+.rev-grid input.rat{border-left:3px solid var(--yellow);}
+.rev-grid input:disabled{opacity:.3;cursor:not-allowed;}
+.kpi3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;}
+.kpi4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;}
+.kpi2{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px;}
+.kd{background:var(--dark);padding:10px 12px;position:relative;}
+.kd::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--yellow);}
+.kd.g::after{background:var(--green);}
+.kd label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px;}
+.kd input{background:transparent;border:none;border-bottom:2px solid #2a3a52;color:#fff;font-size:20px;font-weight:900;width:100%;padding:2px 0;}
+.kd input:focus{outline:none;border-bottom-color:var(--yellow);}
+.kd input::placeholder{color:#2a3a52;}
+.kl{background:var(--grey);padding:8px 10px;}
+.kl label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px;}
+.kl input{background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--dark);font-size:16px;font-weight:700;width:100%;padding:2px 0;}
+.kl input:focus{outline:none;border-bottom-color:var(--yellow);}
+.ka{background:var(--dark);padding:10px 12px;border-left:3px solid var(--yellow);}
+.ka label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px;}
+.ka input.big{background:transparent;border:none;border-bottom:2px solid #2a3a52;color:#fff;font-size:18px;font-weight:900;width:100%;padding:2px 0;}
+.ka input.big:focus{outline:none;border-bottom-color:var(--yellow);}
+.ka .sub{font-size:10px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:4px;}
+.ka .sub input{background:transparent;border:none;border-bottom:1px solid #2a3a52;color:var(--yellow);font-size:12px;font-weight:700;width:70px;padding:1px 0;}
+.sl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:10px 0 6px;}
+.ib{padding:10px 14px;font-size:12px;line-height:1.6;margin-bottom:8px;}
+.ib.warn{background:#fffbeb;border-left:4px solid var(--yellow);color:#92400e;}
+.ib.ok{background:#f0fdf4;border-left:4px solid var(--green);color:#166534;}
+textarea{width:100%;padding:10px;border:1px solid var(--border);font-size:13px;font-family:inherit;resize:vertical;background:var(--grey);}
+textarea:focus{outline:none;border-color:var(--yellow);}
+.action-bar{padding:14px 24px;background:var(--dark);display:flex;gap:10px;align-items:center;position:sticky;bottom:0;}
+.btn-copy{background:var(--yellow);color:var(--dark);border:none;padding:10px 22px;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:1px;}
+.btn-done{background:var(--green);color:#fff;border:none;padding:10px 22px;font-size:12px;font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:1px;}
+.btn-clear{background:transparent;color:var(--muted);border:1px solid #2a3a52;padding:10px 14px;font-size:12px;font-weight:700;cursor:pointer;}
+.copy-ok{font-size:12px;color:var(--green);font-weight:700;display:none;}
+.hidden{display:none!important;}
+</style>
+</head>
+<body><p data-october-only="1" style="padding:12px;margin:0">Вводи только данные за октябрь 2026. Показатели сентября возьму из предыдущего отчёта этого же клиента или партнёра. Если видишь сентябрьское число в подсказке - повторно вводить его не нужно.</p>
+<div class="layout">
+<div class="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-title">КАК<span>СВОИМ</span></div>
+    <div style="font-size:10px;color:var(--muted);margin-top:2px;">Октябрь 2026 · 26 партнёров</div>
+    <div class="progress-bar"><div class="progress-fill" id="pf" style="width:0%"></div></div>
+    <div class="progress-text" id="pt">0 из 34 готово</div>
+  </div>
+  <div class="partner-list" id="pl"></div>
+</div>
+
+<div class="main">
+  <div class="main-head">
+    <div class="main-partner" id="mt">Выберите партнёра <span>←</span></div>
+    <div id="mb" style="display:flex;gap:6px;"></div>
+  </div>
+
+  <div id="es" class="empty">
+    <div style="font-size:36px;margin-bottom:10px;">👈</div>
+    <div style="font-size:14px;font-weight:700;">Выберите партнёра из списка</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px;">Кнопка «Готово» = скопировать + отметить выполненным</div>
+  </div>
+
+  <div id="fa" class="hidden">
+    <div id="bm" class="section hidden"><div class="ib warn">ℹ️ Минск 2 — 2ГИС не предоставляет статистику в Беларуси.</div></div>
+
+    <div class="section">
+      <div class="sec-head"><div class="sec-num">01</div><div class="sec-title">Рейтинги и отзывы</div><div class="sec-hint">Рейтинг пустой = без изм. · Отзывы пустые = 0</div></div>
+      <div class="rev-grid">
+        <div></div><div class="col-h">Рейтинг</div><div class="col-h">Хорошие +</div><div class="col-h">Плохие −</div><div class="col-h">Удалили 🗑</div>
+        <div class="pl ya">Яндекс</div><input class="rat" type="text" id="ya_r" placeholder="—"><input type="number" id="ya_g" placeholder="0" min="0"><input type="number" id="ya_b" placeholder="0" min="0"><input type="number" id="ya_d" placeholder="0" min="0">
+        <div class="pl gi">2ГИС</div><input class="rat" type="text" id="gi_r" placeholder="—"><input type="number" id="gi_g" placeholder="0" min="0"><input type="number" id="gi_b" placeholder="0" min="0"><input type="number" id="gi_d" placeholder="0" min="0">
+        <div class="pl go">Google</div><input class="rat" type="text" id="go_r" placeholder="—"><input type="number" id="go_g" placeholder="0" min="0"><input type="number" id="go_b" placeholder="0" min="0"><input type="number" id="go_d" placeholder="0" min="0">
+        <div class="pl zo">Zoon</div><input class="rat" type="text" id="zo_r" placeholder="—"><input type="number" id="zo_g" placeholder="0" min="0"><input type="number" id="zo_b" placeholder="0" min="0"><input type="number" id="zo_d" placeholder="0" min="0">
+        <div class="pl fl" id="fll">Flamp</div><input class="rat" type="text" id="fl_r" placeholder="—"><input type="number" id="fl_g" placeholder="0" min="0"><input type="number" id="fl_b" placeholder="0" min="0"><input type="number" id="fl_d" placeholder="0" min="0">
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><div class="sec-num">02</div><div class="sec-title">Яндекс — статистика</div></div>
+      <div class="kpi3">
+        <div class="kd"><label>Всего переходов</label><input type="number" id="yt" placeholder="0"></div>
+        <div class="kd"><label>Прямые</label><input type="number" id="yd" placeholder="0"></div>
+        <div class="kd"><label>Дискавери</label><input type="number" id="yi" placeholder="0"></div>
+      </div>
+      <div class="sl">Что делали в профиле</div>
+      <div class="kpi4">
+        <div class="kl"><label>Просм. отзывов</label><input type="number" id="yr" placeholder="0"></div>
+        <div class="kl"><label>Просм. фото</label><input type="number" id="yp" placeholder="0"></div>
+        <div class="kl"><label>Клики тел.</label><input type="number" id="ye" placeholder="0"></div>
+        <div class="kl"><label>Переходы сайт</label><input type="number" id="ys" placeholder="0"></div>
+        <div class="kl"><label>Маршруты</label><input type="number" id="yro" placeholder="0"></div>
+        <div class="kl"><label>Время работы</label><input type="number" id="yw" placeholder="0"></div>
+        <div class="kl"><label>Другое (назв.)</label><input type="text" id="yol" placeholder="—"></div>
+        <div class="kl"><label>Кол-во</label><input type="number" id="yov" placeholder="0"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><div class="sec-num">03</div><div class="sec-title">2ГИС — статистика</div><div class="sec-hint" id="gh">% действий — скриншот отдельно</div></div>
+      <div class="kpi2" id="gi">
+        <div class="kd g"><label>Показов карточки</label><input type="number" id="gs" placeholder="0"></div>
+        <div class="kd g"><label>Средняя позиция</label><input type="number" id="gp" placeholder="0"></div>
+      </div>
+    </div>
+
+    <div class="section hidden" id="as">
+      <div class="sec-head"><div class="sec-num">04</div><div class="sec-title">Реклама Яндекс Бизнес</div></div>
+      <div class="kpi2">
+        <div class="ka"><label>Просмотры рекламы</label><input class="big" type="number" id="avi" placeholder="0"><div class="sub">Потрачено: <input type="text" id="abu" placeholder="0 ₽"></div></div>
+        <div class="ka"><label>Переходы</label><input class="big" type="number" id="acl" placeholder="0"><div class="sub">₽/переход: <input type="text" id="acp" placeholder="—"></div></div>
+        <div class="ka"><label>Целевые клиенты</label><input class="big" type="number" id="acu" placeholder="0"><div class="sub">₽/клиент: <input type="text" id="aca" placeholder="—"></div></div>
+        <div class="ka"><label>Целевые действия</label><input class="big" type="text" id="aac" placeholder="число / «нет доступа»"></div>
+      </div>
+      <div class="sl">Действия в Картах</div>
+      <div class="kpi4">
+        <div class="kl"><label>Тел. в Картах</label><input type="number" id="amp" placeholder="0"></div>
+        <div class="kl"><label>Сайт из Карт</label><input type="number" id="ams" placeholder="0"></div>
+        <div class="kl"><label>Маршруты</label><input type="number" id="amr" placeholder="0"></div>
+        <div class="kl"><label>Акция</label><input type="number" id="ama" placeholder="0"></div>
+      </div>
+      <div class="sl">Звонки</div>
+      <div class="kpi4">
+        <div class="kl"><label>Принятые</label><input type="number" id="aco" placeholder="0"></div>
+        <div class="kl"><label>Непринятые</label><input type="number" id="acm" placeholder="0"></div>
+        <div class="kl"><label>Длит. разг.</label><input type="text" id="acd" placeholder="0:00"></div>
+        <div class="kl"><label>Ожидание</label><input type="text" id="acw" placeholder="0:00"></div>
+      </div>
+      <div class="sl">Целевые действия на сайте</div>
+      <textarea id="asa" rows="2" placeholder="квиз 92, скачивание 9, продолжит. 5+ мин 49..."></textarea>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><div class="sec-num">05</div><div class="sec-title">Особое / комментарий</div><div class="sec-hint">Необязательно</div></div>
+      <textarea id="nt" rows="2" placeholder="нет доступа к 2ГИС / карточка на модерации / другое..."></textarea>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn-copy" onclick="doCopy()">⧉ Скопировать</button>
+      <button class="btn-done" onclick="markDone()">✓ Готово</button>
+      <button class="btn-clear" onclick="clearF()">✕ Очистить</button>
+      <span class="copy-ok" id="cok">✓ Скопировано!</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const PP=[
+  {n:'Барнаул 1'},
+  {n:'Бугульма 1',nf:1},
+  {n:'Казань 1',ads:1},
+  {n:'Казань 3'},
+  {n:'Казань 5'},
+  {n:'Киров 1'},
+  {n:'Киров 2',nf:1},
+  {n:'Луганск 1',nf:1},
+  {n:'Магнитогорск 1'},
+  {n:'Магнитогорск 2'},
+  {n:'Магнитогорск 3'},
+  {n:'Москва 14',ads:1},
+  {n:'Москва 18',ads:1},
+  {n:'Москва 2'},
+  {n:'Москва 4'},
+  {n:'Москва 8'},
+  {n:'Набережные Челны 4',ads:1},
+  {n:'Нижний Новгород 1'},
+  {n:'Рязань 1',ads:1},
+  {n:'Самара 5'},
+  {n:'Санкт-Петербург 2',ads:1},
+  {n:'Ставрополь 2'},
+  {n:'Тверь 2',ads:1},
+  {n:'Тюмень 3'},
+  {n:'Челябинск 2',ads:1},
+  {n:'Челябинск 3'}
+];
+
+const KEY='done_oct26';
+const done=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'));
+const publishedMoscow={'Москва 2':'2','Москва 4':'4','Москва 8':'8','Москва 14':'14','Москва 18':'18'};
+try{if(!localStorage.getItem('done-oct26-moscow-published-v1')){Object.keys(publishedMoscow).forEach(n=>done.add(n));localStorage.setItem(KEY,JSON.stringify([...done]));localStorage.setItem('done-oct26-moscow-published-v1','1');}}catch(e){Object.keys(publishedMoscow).forEach(n=>done.add(n));}
+
+let cur=null;
+
+function save(){localStorage.setItem(KEY,JSON.stringify([...done]));}
+
+function buildList(){
+  const ul=document.getElementById('pl');
+  ul.innerHTML='';
+  const dc=done.size,tot=PP.length;
+  document.getElementById('pf').style.width=(dc/tot*100)+'%';
+  document.getElementById('pt').textContent=dc+' из '+tot+' готово';
+  const sorted=[...PP].sort((a,b)=>done.has(a.n)===done.has(b.n)?0:done.has(a.n)?1:-1);
+  for(const p of sorted){
+    const d=done.has(p.n);
+    const div=document.createElement('div');
+    div.className='partner-item'+(d?' done':'')+(cur===p.n?' active':'');
+    div.onclick=()=>sel(p.n);
+    const ck=document.createElement('div');ck.className='p-check';if(d)ck.textContent='✓';div.appendChild(ck);
+    const nm=document.createElement('div');nm.className='p-name';nm.textContent=p.n;div.appendChild(nm);
+    if(publishedMoscow[p.n]){const link=document.createElement('a');link.className='p-badge';link.textContent='РАЗМЕЩЁН ↗';link.href='https://kaksvoim-geo.github.io/moscow-'+publishedMoscow[p.n]+'-oct-2026.html';link.target='_blank';link.onclick=e=>e.stopPropagation();div.appendChild(link);}
+    if(p.ads){const b=document.createElement('span');b.className='p-badge ads';b.textContent='РЕК';div.appendChild(b);}
+    if(p.newad){const b=document.createElement('span');b.className='p-badge new';b.textContent='1-й мес';div.appendChild(b);}
+    ul.appendChild(div);
+  }
+}
+
+function sel(name){
+  cur=name;
+  const p=PP.find(x=>x.n===name);
+  document.getElementById('es').classList.add('hidden');
+  document.getElementById('fa').classList.remove('hidden');
+  document.getElementById('mt').innerHTML='<span>'+name+'</span>';
+  const mb=document.getElementById('mb');mb.innerHTML='';
+  if(p.ads)mb.innerHTML+='<span class="p-badge ads" style="font-size:10px;padding:3px 8px;">★ Реклама</span>';
+  document.getElementById('bm').classList.toggle('hidden',!p.mk);
+  document.getElementById('as').classList.toggle('hidden',!p.ads);
+  document.querySelectorAll('#gi input').forEach(i=>{i.disabled=!!p.mk;i.placeholder=p.mk?'—':'0';});
+  document.getElementById('gh').textContent=p.mk?'⛔ Статистика недоступна в Беларуси':'% действий — скриншот отдельно';
+  const fd=!!p.nf||!!p.mk;
+  ['fl_r','fl_g','fl_b','fl_d'].forEach(id=>{const el=document.getElementById(id);el.disabled=fd;el.placeholder=fd?'нет сервиса':'—';});
+  document.getElementById('fll').style.opacity=fd?'.35':'1';
+  buildList();clearF();
+}
+
+function v(id){return(document.getElementById(id)?.value||'').trim();}
+function n(id){const x=v(id);return(x&&x!=='0')?x:'0';}
+
+function gettext(){
+  const p=PP.find(x=>x.n===cur);
+  let o='=== '+cur+(p.ads?' [РЕКЛАМА'+(p.newad?', ПЕРВЫЙ МЕСЯЦ':'')+']':'')+' — Октябрь 2026 ===\n\n';
+  o+='РЕЙТИНГИ И ОТЗЫВЫ\n';
+  const plats=[['Яндекс','ya'],['2ГИС','gi'],['Google','go'],['Zoon','zo']];
+  if(!p.nf)plats.push(['Flamp','fl']);
+  for(const[nm,px]of plats){
+    o+=nm+': рейтинг='+(v(px+'_r')||'без изм.')+' | +'+(n(px+'_g'))+' -'+(n(px+'_b'))+' 🗑'+(n(px+'_d'))+'\n';
+  }
+  o+='\nЯНДЕКС СТАТИСТИКА\n';
+  o+='Переходы: всего='+n('yt')+' прямые='+n('yd')+' дискавери='+n('yi')+'\n';
+  o+='Действия: отзывы='+n('yr')+' фото='+n('yp')+' тел='+n('ye')+' сайт='+n('ys')+' маршруты='+n('yro')+' время='+n('yw');
+  if(v('yol')&&n('yov')!=='0')o+=' '+v('yol')+'='+n('yov');
+  o+='\n';
+  if(p.mk){o+='\n2ГИС: недоступна (Беларусь)\n';}
+  else{o+='\n2ГИС СТАТИСТИКА\nПоказов='+n('gs')+' Позиция='+n('gp')+'\n% действий — скриншот\n';}
+  if(p.ads){
+    o+='\nРЕКЛАМА\nПросмотры='+n('avi')+' Потрачено='+v('abu')+'\n';
+    o+='Переходы='+n('acl')+' ₽/переход='+v('acp')+'\nКлиенты='+n('acu')+' ₽/клиент='+v('aca')+'\n';
+    o+='Целевые действия='+(v('aac')||'нет данных')+'\n';
+    o+='Карты: тел='+n('amp')+' сайт='+n('ams')+' маршруты='+n('amr')+' акция='+n('ama')+'\n';
+    o+='Звонки: принятые='+n('aco')+' непринятые='+n('acm')+' разг='+v('acd')+' ожид='+v('acw')+'\n';
+    if(v('asa'))o+='Сайт-действия: '+v('asa')+'\n';
+  }
+  const nt=v('nt');if(nt)o+='\nОСОБОЕ: '+nt+'\n';
+  o+='=====================================\n';
+  return o;
+}
+
+function doCopy(){
+  if(!cur)return;
+  const ta=document.createElement('textarea');ta.value=gettext();
+  ta.style.cssText='position:fixed;opacity:0;';document.body.appendChild(ta);ta.select();
+  document.execCommand('copy');document.body.removeChild(ta);
+  const ok=document.getElementById('cok');ok.style.display='inline';
+  setTimeout(()=>ok.style.display='none',2500);
+}
+
+function markDone(){
+  if(!cur)return;
+  doCopy();done.add(cur);save();buildList();
+  const next=PP.find(p=>!done.has(p.n));
+  if(next)setTimeout(()=>sel(next.n),300);
+}
+
+function clearF(){
+  document.querySelectorAll('#fa input:not(:disabled),#fa textarea').forEach(el=>el.value='');
+}
+
+buildList();
+</script>
+</body>
+</html>
+
